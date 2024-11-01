@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { Text, View } from "react-native";
 
 import CustomButton from "@/components/CustomButton";
-import GoogleTextInput from "@/components/GoogleTextInput";
+import GoogleTextInput from "@/components/GoogleTextComponent";
 import RideLayout from "@/components/RideLayout";
 import { icons } from "@/constants";
 import { useLocationStore } from "@/store";

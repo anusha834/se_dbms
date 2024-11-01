@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, Text, View, StyleSheet } from "react-native";
 import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
-import "../global.css"
 import { icons } from "@/constants";
 import { useFetch } from "@/lib/fetch";
 import {
@@ -13,7 +12,7 @@ import {
 import { useDriverStore, useLocationStore } from "@/store";
 import { Driver, MarkerData } from "@/types/type";
 
-const directionsAPI = process.env.EXPO_PUBLIC_DIRECTIONS_API_KEY;
+const directionsAPI = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
 
 const Map = () => {
   const {
@@ -66,32 +65,31 @@ const Map = () => {
     destinationLongitude,
   });
 
-  if (loading || (!userLatitude && !userLongitude))
+  if (loading || (!userLatitude && !userLongitude)) {
     return (
-      <View className="flex justify-between items-center w-full">
+      <View style={styles.loadingContainer}>
         <ActivityIndicator size="small" color="#000" />
       </View>
     );
+  }
 
-  if (error)
+  if (error) {
     return (
-      <View className="flex justify-between items-center w-full">
+      <View style={styles.errorContainer}>
         <Text>Error: {error}</Text>
       </View>
     );
+  }
 
   return (
     <MapView
       provider={PROVIDER_DEFAULT}
-      className="w-full h-full rounded-2xl"
-      tintColor="black"
-      mapType="mutedStandard"
-      showsPointsOfInterest={false}
+      style={styles.map}
       initialRegion={region}
       showsUserLocation={true}
       userInterfaceStyle="light"
     >
-      {markers.map((marker, index) => (
+      {markers.map((marker) => (
         <Marker
           key={marker.id}
           coordinate={{
@@ -134,5 +132,22 @@ const Map = () => {
     </MapView>
   );
 };
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  map: {
+    width: "100%",
+    height: "100%",
+  },
+});
 
 export default Map;
