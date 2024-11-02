@@ -49,7 +49,7 @@ const DriverCard = ({ item, selected, setSelected }: DriverCardProps) => {
             |
           </Text>
 
-          <Text className="text-sm font-JakartaRegular text-general-800">
+          <Text className="text-sm font-JakartaRegular text-general-800 p-3">
             {item.car_seats} seats
           </Text>
         </View>

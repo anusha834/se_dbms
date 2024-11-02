@@ -7,6 +7,7 @@ import { images } from "@/constants";
 import { useFetch } from "@/lib/fetch";
 import { Ride } from "@/types/type";
 
+
 const Rides = () => {
   const { user } = useUser();
 
